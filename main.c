@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xhuang <xhuang@student.42.fr>              +#+  +:+       +#+        */
+/*   By: junjun <junjun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 17:25:57 by xhuang            #+#    #+#             */
-/*   Updated: 2024/11/17 17:42:52 by xhuang           ###   ########.fr       */
+/*   Updated: 2024/11/22 15:26:24 by junjun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,12 @@ int main(int argc, char **argv, char **envp)
 	
 	fd1 = open(argv[1], O_RDONLY);
 	fd2 = open(argv[4], O_CREAT | O_RDWR | O_TRUNC, 0644);
+	if (fd1 < 0 || fd2 < 0)
+	{
+		return(-1);
+	}
+	pipex(fd1, fd2, argv, envp);
+	return(0);
+	
    
 }

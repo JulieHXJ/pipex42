@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_check.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xhuang <xhuang@student.42.fr>              +#+  +:+       +#+        */
+/*   By: junjun <junjun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 17:40:23 by xhuang            #+#    #+#             */
-/*   Updated: 2024/11/17 17:40:47 by xhuang           ###   ########.fr       */
+/*   Updated: 2024/11/22 15:24:14 by junjun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,12 @@ int	check_args(int argc, char **argv)
 		/* code */
 	}
 	return (0);
+}
+// int check_path
+
+void	error_handling(t_pipex *pipex, char *text)
+{
+	perror(text);
+	clean_up(pipex);
+	exit(EXIT_FAILURE);
 }
