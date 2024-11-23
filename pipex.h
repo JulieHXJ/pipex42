@@ -6,7 +6,7 @@
 /*   By: xhuang <xhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 16:17:47 by xhuang            #+#    #+#             */
-/*   Updated: 2024/11/17 17:11:09 by xhuang           ###   ########.fr       */
+/*   Updated: 2024/11/23 15:01:56 by xhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,8 @@ typedef struct s_pipex
 	char	*cmd1_path;
 	char	*cmd2_path;
 }			t_pipex;
+
+
+int	check_args(int argc, char **argv);
 
 #endif

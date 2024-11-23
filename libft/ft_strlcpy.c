@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: xhuang <xhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/17 17:25:57 by xhuang            #+#    #+#             */
-/*   Updated: 2024/11/23 15:08:20 by xhuang           ###   ########.fr       */
+/*   Created: 2024/10/09 18:16:57 by xhuang            #+#    #+#             */
+/*   Updated: 2024/10/10 14:24:22 by xhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-int main(int argc, char **argv, char **envp)
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
-	int fd1;
-	int	fd2;
-	
-	init_pipe();//fill structue with default data
-	check_args(argc, );//try open each file
+	size_t	i;
 
-	pipex(fd1, fd2, argv, envp);
-	return(0);
-	
-   
+	i = 0;
+	if (dstsize == 0)
+		return (ft_strlen(src));
+	while (src[i] && i < dstsize - 1)
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+	return (ft_strlen(src));
 }

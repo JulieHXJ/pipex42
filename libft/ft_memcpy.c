@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: xhuang <xhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/17 17:25:57 by xhuang            #+#    #+#             */
-/*   Updated: 2024/11/23 15:08:20 by xhuang           ###   ########.fr       */
+/*   Created: 2024/10/09 17:29:00 by xhuang            #+#    #+#             */
+/*   Updated: 2024/10/10 18:14:20 by xhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-int main(int argc, char **argv, char **envp)
+void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	int fd1;
-	int	fd2;
-	
-	init_pipe();//fill structue with default data
-	check_args(argc, );//try open each file
+	size_t	i;
 
-	pipex(fd1, fd2, argv, envp);
-	return(0);
-	
-   
+	i = 0;
+	if (!dst && !src)
+		return (NULL);
+	while (i < n)
+	{
+		((unsigned char *)dst)[i] = ((unsigned char *)src)[i];
+		i++;
+	}
+	return (dst);
 }

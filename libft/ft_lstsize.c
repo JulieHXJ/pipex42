@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: xhuang <xhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/17 17:25:57 by xhuang            #+#    #+#             */
-/*   Updated: 2024/11/23 15:08:20 by xhuang           ###   ########.fr       */
+/*   Created: 2024/11/11 17:57:24 by xhuang            #+#    #+#             */
+/*   Updated: 2024/11/15 15:41:13 by xhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-int main(int argc, char **argv, char **envp)
+int	ft_lstsize(t_list *lst)
 {
-	int fd1;
-	int	fd2;
-	
-	init_pipe();//fill structue with default data
-	check_args(argc, );//try open each file
+	int	i;
 
-	pipex(fd1, fd2, argv, envp);
-	return(0);
-	
-   
+	i = 0;
+	while (lst)
+	{
+		lst = lst->next;
+		i++;
+	}
+	return (i);
 }

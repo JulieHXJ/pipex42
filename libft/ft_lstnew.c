@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xhuang <xhuang@student.42.fr>              +#+  +:+       +#+        */
+/*   By: junjun <junjun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/17 17:25:57 by xhuang            #+#    #+#             */
-/*   Updated: 2024/11/23 15:08:20 by xhuang           ###   ########.fr       */
+/*   Created: 2024/11/10 17:46:29 by xhuang            #+#    #+#             */
+/*   Updated: 2024/11/12 22:38:58 by junjun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-int main(int argc, char **argv, char **envp)
+t_list	*ft_lstnew(void *content)
 {
-	int fd1;
-	int	fd2;
-	
-	init_pipe();//fill structue with default data
-	check_args(argc, );//try open each file
+	t_list	*new_node;
 
-	pipex(fd1, fd2, argv, envp);
-	return(0);
-	
-   
+	new_node = (t_list *)malloc(sizeof(t_list));
+	if (!new_node)
+		return (NULL);
+	new_node->content = content;
+	new_node->next = NULL;
+	return (new_node);
 }

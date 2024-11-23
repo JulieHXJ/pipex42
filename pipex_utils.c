@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junjun <junjun@student.42.fr>              +#+  +:+       +#+        */
+/*   By: xhuang <xhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 17:11:31 by xhuang            #+#    #+#             */
-/*   Updated: 2024/11/22 15:24:30 by junjun           ###   ########.fr       */
+/*   Updated: 2024/11/23 15:25:25 by xhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,10 @@ void	clean_up(t_pipex *pipex)
 	}
 }
 
-char **splict_cmd(char *cmd)
+void	error_handling(t_pipex *pipex, char *text)
 {
-	
+	perror(text);
+	clean_up(pipex);
+	exit(EXIT_FAILURE);
 }
 
-int	

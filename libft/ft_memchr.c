@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: xhuang <xhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/17 17:25:57 by xhuang            #+#    #+#             */
-/*   Updated: 2024/11/23 15:08:20 by xhuang           ###   ########.fr       */
+/*   Created: 2024/10/09 17:26:25 by xhuang            #+#    #+#             */
+/*   Updated: 2024/10/09 17:27:30 by xhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-int main(int argc, char **argv, char **envp)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	int fd1;
-	int	fd2;
-	
-	init_pipe();//fill structue with default data
-	check_args(argc, );//try open each file
+	unsigned char	*str;
+	unsigned char	check;
 
-	pipex(fd1, fd2, argv, envp);
-	return(0);
-	
-   
+	str = (unsigned char *)s;
+	check = (unsigned char)c;
+	while (n--)
+	{
+		if (*str == check)
+			return ((void *)str);
+		str++;
+	}
+	return (NULL);
 }

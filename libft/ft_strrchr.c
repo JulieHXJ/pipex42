@@ -1,27 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: xhuang <xhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/17 17:25:57 by xhuang            #+#    #+#             */
-/*   Updated: 2024/11/23 15:08:20 by xhuang           ###   ########.fr       */
+/*   Created: 2024/10/09 18:20:36 by xhuang            #+#    #+#             */
+/*   Updated: 2024/10/13 13:27:53 by xhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-int main(int argc, char **argv, char **envp)
+char	*ft_strrchr(const char *s, int c)
 {
-	int fd1;
-	int	fd2;
-	
-	init_pipe();//fill structue with default data
-	check_args(argc, );//try open each file
+	int		i;
+	char	*there;
+	char	cc;
 
-	pipex(fd1, fd2, argv, envp);
-	return(0);
-	
-   
+	i = 0;
+	there = NULL;
+	cc = (char) c;
+	while (s[i] != '\0')
+	{
+		if (s[i] == cc)
+			there = (char *)&s[i];
+		i++;
+	}
+	if (cc == '\0')
+		return ((char *)s + i);
+	return (there);
 }
