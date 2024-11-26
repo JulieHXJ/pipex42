@@ -6,7 +6,7 @@
 #    By: xhuang <xhuang@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/16 15:04:21 by xhuang            #+#    #+#              #
-#    Updated: 2024/11/17 17:33:57 by xhuang           ###   ########.fr        #
+#    Updated: 2024/11/24 18:43:14 by xhuang           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror
 
-SRCS = pipex.c main.c
+SRCS = pipex.c pipex_prep.c pipex_utils.c
 
 SRCOBJ := $(SRCS:%.c=%.o) 
 

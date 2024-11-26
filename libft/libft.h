@@ -6,7 +6,7 @@
 /*   By: xhuang <xhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 18:25:39 by xhuang            #+#    #+#             */
-/*   Updated: 2024/11/17 14:15:35 by xhuang           ###   ########.fr       */
+/*   Updated: 2024/11/24 18:02:05 by xhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,7 @@ int					str_len(char *str);
 # endif
 
 char				*get_next_line(int fd);
+char				*ft_strcat(char *s1, const char *s2);
+char				*ft_strcpy(char *dst, const char *src);
 
 #endif

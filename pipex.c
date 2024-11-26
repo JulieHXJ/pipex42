@@ -3,26 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junjun <junjun@student.42.fr>              +#+  +:+       +#+        */
+/*   By: xhuang <xhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 16:18:51 by xhuang            #+#    #+#             */
-/*   Updated: 2024/11/22 15:24:52 by junjun           ###   ########.fr       */
+/*   Updated: 2024/11/24 18:57:32 by xhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	pipex(int fd1, int fd2, char *cmd1, char *cmd2)
+int main(int argc, char **argv, char **envp)
+{
+	int fd1;
+	int	fd2;
+	
+	init_pipe();//fill structue with default data
+	check_args(argc, );//try open each file
+	cmd_to_array();
+	make_cmd_path();
+	while (argv[2] && argv[3])
+	{
+		pipex(pipex, envp);
+		// ft_exec();
+	}
+	clean_up();
+	return(0);
+	
+   
+}
+
+
+void	pipex(t_pipex *pipex, char **envp)
 {
 	int pipefd[2]; // pipefd[0] is for reading, and pipefd[1] is for writing.
 	int	status;
 	pid_t	child1;       // to record the child process status
 	pid_t	child2;
 	// check file exist
-	if (!open(fd1) || !open(fd2))
-	{
-		return ;
-	}
 	pipe(pipefd); // creat pipeline between fd[0] and fd[1]
 	if (pipe(pipefd) == -1)
 	{
@@ -69,6 +86,21 @@ void	pipex(int fd1, int fd2, char *cmd1, char *cmd2)
 	return (EXIT_SUCCESS);
 }
 
+void	init_pipex(t_pipex *pipex, char **argv)
+{
+	pipex->infilename = argv[1];
+	pipex->outfilename = argv[4];
+	pipex->infile_fd = open(pipex->infilename, O_RDONLY);
+	pipex->outfile_fd = open(argv[4], O_CREAT | O_RDWR | O_TRUNC, 0644);
+	if (pipex->infile_fd < 0 || pipex->outfile_fd < 0)
+	{
+		perror("Cannot open files");
+		exit(1);
+	}
+	pipe(pipex->pipefd);
+	pipex->cmd_num = 2;
+	pipex->cmd1_arg = 
+}
 
 void	child_process(int fd1, char *cmd1)
 {

@@ -6,11 +6,27 @@
 /*   By: xhuang <xhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 17:11:31 by xhuang            #+#    #+#             */
-/*   Updated: 2024/11/23 15:25:25 by xhuang           ###   ########.fr       */
+/*   Updated: 2024/11/24 18:45:07 by xhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+
+void	free_array(char **arr)
+{
+	int	i;
+
+	i = 0;
+	if (!arr)
+		return ;
+	while (arr[i])
+	{
+		free(arr[i]);
+		i++;
+	}
+	free(arr);
+}
 
 void	clean_up(t_pipex *pipex)
 {
