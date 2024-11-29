@@ -6,7 +6,7 @@
 /*   By: xhuang <xhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 18:25:39 by xhuang            #+#    #+#             */
-/*   Updated: 2024/11/24 18:02:05 by xhuang           ###   ########.fr       */
+/*   Updated: 2024/11/29 18:05:25 by xhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int					ft_tolower(int c);
 char				*ft_strchr(const char *s, int c);
 char				*ft_strrchr(const char *s, int c);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
+int					ft_strcmp(const char *s1, const char *s2);
 size_t				ft_strlen(const char *s);
 void				*ft_memset(void *b, int c, size_t len);
 void				ft_bzero(void *s, size_t n);
@@ -39,6 +40,8 @@ void				*ft_memchr(const void *s, int c, size_t n);
 int					ft_memcmp(const void *s1, const void *s2, size_t n);
 size_t				ft_strlcpy(char *dst, const char *src, size_t dstsize);
 size_t				ft_strlcat(char *dst, const char *src, size_t dstsize);
+char				*ft_strcat(char *s1, const char *s2);
+char				*ft_strcpy(char *dst, const char *src);
 char				*ft_strnstr(const char *haystack, const char *needle,
 						size_t len);
 int					ft_atoi(const char *str);
@@ -96,7 +99,6 @@ int					str_len(char *str);
 # endif
 
 char				*get_next_line(int fd);
-char				*ft_strcat(char *s1, const char *s2);
-char				*ft_strcpy(char *dst, const char *src);
+
 
 #endif

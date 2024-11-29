@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: xhuang <xhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/15 16:18:51 by xhuang            #+#    #+#             */
-/*   Updated: 2024/11/29 18:13:23 by xhuang           ###   ########.fr       */
+/*   Created: 2024/11/29 17:57:27 by xhuang            #+#    #+#             */
+/*   Updated: 2024/11/29 18:07:41 by xhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,21 @@ void	pipexx(t_pipex *pipex, char **envp)
 			envp);
 	else
 		parent_process(child1, child2, pipex);
+}
+
+void	init_pipex(t_pipex *pipex)
+{
+	pipex->infilename = NULL;
+	pipex->outfilename = NULL;
+	pipex->infile_fd = -1;
+	pipex->outfile_fd = -1;
+	pipex->pipefd[0] = -1;
+	pipex->pipefd[1] = -1;
+	pipex->cmd_num = 0; 
+	pipex->cmd1_arg = NULL;
+	pipex->cmd2_arg = NULL;
+	pipex->cmd1_path = NULL;
+	pipex->cmd2_path = NULL;
 }
 
 void	child_process(int in_fd, int out_fd, char **cmd, char **envp)
@@ -76,6 +91,21 @@ void	execute_cmd(t_pipex *pipex, int cmd)
 {
 }
 
+int	check_args(int argc, char **argv, t_pipex *pipex)
+{
+	if (argc < 5)
+		return (ft_printf("Wrong arguments!\n"), -1);
+	pipex->infile_fd = open(argv[1], O_RDONLY);
+	if (pipex->infile_fd < 0)
+		error_handling("Cannot open infile!\n", pipex, EXIT_FAILURE);
+	pipex->outfile_fd = open(argv[4], O_CREAT | O_RDWR | O_TRUNC, 0644);
+	if (pipex->outfile_fd < 0)
+		error_handling("Cannot open outfile!\n", pipex, EXIT_FAILURE);
+	if (!argv[2] || !argv[3] || !*argv[2] || !*argv[3])
+		error_handling("Empty commands!\n", pipex, EXIT_FAILURE);
+	return (0);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_pipex	pipex;
@@ -85,20 +115,25 @@ int	main(int argc, char **argv, char **envp)
 	{
 		return (EXIT_FAILURE);
 	}
-	pipex.cmd1_arg = cmd_to_array(argv[2]);
-	pipex.cmd2_arg = cmd_to_array(argv[3]);
-	if (!pipex.cmd1_arg || !pipex.cmd2_arg)
-	{
-		clean_up(&pipex);
-		return (EXIT_FAILURE);
-	}
-	pipex.cmd1_path = make_cmd_path(pipex.cmd1_arg[0], envp);
-	pipex.cmd2_path = make_cmd_path(pipex.cmd2_arg[0], envp);
-	if (!pipex.cmd1_path || !pipex.cmd2_path)
-	{
-		clean_up(&pipex);
-		return (EXIT_FAILURE);
-	}
+    if (ft_strcmp(argv[1], "here_doc") == 0)
+    {
+        /* code */
+    }
+    
+	// pipex.cmd1_arg = cmd_to_array(argv[2]);
+	// pipex.cmd2_arg = cmd_to_array(argv[3]);
+	// if (!pipex.cmd1_arg || !pipex.cmd2_arg)
+	// {
+	// 	clean_up(&pipex);
+	// 	return (EXIT_FAILURE);
+	// }
+	// pipex.cmd1_path = make_cmd_path(pipex.cmd1_arg[0], envp);
+	// pipex.cmd2_path = make_cmd_path(pipex.cmd2_arg[0], envp);
+	// if (!pipex.cmd1_path || !pipex.cmd2_path)
+	// {
+	// 	clean_up(&pipex);
+	// 	return (EXIT_FAILURE);
+	// }
 	pipexx(&pipex, envp);
 	clean_up(&pipex);
 	return (EXIT_SUCCESS);
