@@ -6,12 +6,11 @@
 /*   By: xhuang <xhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 17:11:31 by xhuang            #+#    #+#             */
-/*   Updated: 2024/11/29 16:32:17 by xhuang           ###   ########.fr       */
+/*   Updated: 2024/12/01 16:29:12 by xhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
 
 void	free_array(char **arr)
 {
@@ -31,26 +30,30 @@ void	free_array(char **arr)
 
 void	clean_up(t_pipex *pipex)
 {
-	// close fd
 	if (pipex->pipefd[0] > 0)
 		close(pipex->pipefd[0]);
+	pipex->pipefd[0] = -1;
 	if (pipex->pipefd[1] > 0)
 		close(pipex->pipefd[1]);
-	// free cmd path
+	pipex->pipefd[1] = -1;
+	if (pipex->infile_fd > 0)
+		close(pipex->infile_fd);
+	pipex->infile_fd = -1;
+	if (pipex->outfile_fd > 0)
+		close(pipex->outfile_fd);
+	pipex->outfile_fd = -1;
 	if (pipex->cmd1_path)
 		free(pipex->cmd1_path);
+	pipex->cmd1_path = NULL;
 	if (pipex->cmd2_path)
 		free(pipex->cmd2_path);
-	// free cmd array
+	pipex->cmd2_path = NULL;
 	if (pipex->cmd1_arg)
 		free_array(pipex->cmd1_arg);
+	pipex->cmd1_arg = NULL;
 	if (pipex->cmd2_arg)
 		free_array(pipex->cmd2_arg);
-	// wait for child prcess
-	while (wait(NULL) > 0)
-	{
-		/* code */
-	}
+	pipex->cmd2_arg = NULL;
 }
 
 void	error_handling(t_pipex *pipex, char *text, int exit_code)
@@ -61,4 +64,3 @@ void	error_handling(t_pipex *pipex, char *text, int exit_code)
 		clean_up(pipex);
 	exit(exit_code);
 }
-

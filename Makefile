@@ -6,7 +6,7 @@
 #    By: xhuang <xhuang@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/16 15:04:21 by xhuang            #+#    #+#              #
-#    Updated: 2024/11/28 19:06:57 by xhuang           ###   ########.fr        #
+#    Updated: 2024/12/01 15:51:32 by xhuang           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,20 +22,21 @@ SRCS = pipex.c pipex_prep.c pipex_utils.c
 
 SRCOBJ := $(SRCS:%.c=%.o) 
 
+LIBFT = libft/libft.a
 
 .PHONY: all clean fclean re libft
 
-all:	$(NAME)
+all:	libft $(NAME)
 
 libft: 
 	@make -C libft/
 
-$(NAME):	$(SRCOBJ) 
-	ar rcs $(NAME) $(SRCOBJ)
+$(NAME):	$(SRCOBJ) $(LIBFT)
+	$(CC) $(CFLAGS) $(SRCOBJ) -Llibft -lft -o $(NAME)
 	@echo "Library $(NAME) has been created."
 
 %.o:	%.c
-	@$(CC) $(CFLAGS) -I $(INCLUDES) -Ilibft -c $< -o $@ 
+	@$(CC) $(CFLAGS) -Ilibft -c $< -o $@ 
 
 clean:	
 	$(RM) $(SRCOBJ) 
