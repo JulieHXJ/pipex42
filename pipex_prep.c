@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_prep.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xhuang <xhuang@student.42.fr>              +#+  +:+       +#+        */
+/*   By: junjun <junjun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 17:40:23 by xhuang            #+#    #+#             */
-/*   Updated: 2024/12/03 17:39:56 by xhuang           ###   ########.fr       */
+/*   Updated: 2024/12/04 20:04:42 by junjun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,9 @@ int	check_args(char **argv, t_pipex *pipex, char **envp)
  */
 char	**get_path_dir(char **envp)
 {
-	char	*temp;
+	char	*temp = NULL;
 	char	**dir;
 
-	temp = NULL;
 	while (*envp)
 	{
 		if (ft_strncmp(*envp, "PATH=", 5) == 0)
@@ -65,8 +64,10 @@ char	**get_path_dir(char **envp)
 	if (!temp)
 		return (NULL);
 	dir = ft_split(temp, ':');
-	if (!dir)
-		return (NULL);
+	// if (!dir)
+	// {
+	// 	return (NULL);
+	// }
 	return (dir);
 }
 
@@ -113,7 +114,7 @@ char	*make_cmd_path(char *cmd, char **envp)
 		free(path);
 		if (!full_path)
 			return (free_array(dir), free_array(cmd_name), NULL);
-		if (access(full_path, F_OK | X_OK) == 0)
+		if (access(full_path, X_OK) == 0)
 			return (free_array(dir), free_array(cmd_name), full_path);
 		free(full_path);
 		full_path = NULL;

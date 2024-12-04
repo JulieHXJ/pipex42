@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xhuang <xhuang@student.42.fr>              +#+  +:+       +#+        */
+/*   By: junjun <junjun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 16:18:51 by xhuang            #+#    #+#             */
-/*   Updated: 2024/12/03 17:17:01 by xhuang           ###   ########.fr       */
+/*   Updated: 2024/12/04 20:02:20 by junjun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,10 @@ void	child_process(int in_fd, int out_fd, int unused_pipe, char *path, char **ag
 	{
 		close(in_fd);
 		close(out_fd);
+		free(path);
 		error_handling(NULL, "execve failed", EXIT_FAILURE);
 	}
+	free(path);
 	exit(EXIT_SUCCESS);
 }
 
@@ -53,9 +55,11 @@ void	pipexx(t_pipex *pipex, char **envp)
 {
 	pid_t	child1;
 	pid_t	child2;
+	int status;
 
+	status = 0;
 	if (pipe(pipex->pipefd) == -1)
-		error_handling(pipex, "pipe", EXIT_FAILURE);
+		return (error_handling(pipex, "pipe", EXIT_FAILURE));
 	child1 = fork();
 	if (child1 == -1)
 		error_handling(pipex, "fork", EXIT_FAILURE);
@@ -72,8 +76,14 @@ void	pipexx(t_pipex *pipex, char **envp)
 		child_process(pipex->pipefd[0], pipex->outfile_fd, pipex->pipefd[1], pipex->cmd2_path,
 			pipex->cmd2_arg, envp);
 	}
-	else
-		parent_process(child1, child2, pipex);
+	// else
+	// 	parent_process(child1, child2, pipex);
+	close(pipex->pipefd[0]);
+	close(pipex->pipefd[1]);
+	waitpid(child1, &status, 0);
+	waitpid(child2, &status, 0);
+	
+	
 }
 
 int	main(int argc, char **argv, char **envp)
