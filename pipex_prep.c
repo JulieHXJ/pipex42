@@ -3,27 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_prep.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junjun <junjun@student.42.fr>              +#+  +:+       +#+        */
+/*   By: xhuang <xhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 17:40:23 by xhuang            #+#    #+#             */
-/*   Updated: 2024/12/04 20:04:42 by junjun           ###   ########.fr       */
+/*   Updated: 2024/12/06 18:26:55 by xhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-void	init_pipex(t_pipex *pipex)
-{
-	pipex->infile_fd = -1;
-	pipex->outfile_fd = -1;
-	pipex->pipefd[0] = -1;
-	pipex->pipefd[1] = -1;
-	pipex->cmd_num = 2;
-	pipex->cmd1_arg = NULL;
-	pipex->cmd2_arg = NULL;
-	pipex->cmd1_path = NULL;
-	pipex->cmd2_path = NULL;
-}
 
 int	check_args(char **argv, t_pipex *pipex, char **envp)
 {
@@ -49,9 +36,10 @@ int	check_args(char **argv, t_pipex *pipex, char **envp)
  */
 char	**get_path_dir(char **envp)
 {
-	char	*temp = NULL;
+	char	*temp;
 	char	**dir;
 
+	temp = NULL;
 	while (*envp)
 	{
 		if (ft_strncmp(*envp, "PATH=", 5) == 0)
@@ -64,10 +52,8 @@ char	**get_path_dir(char **envp)
 	if (!temp)
 		return (NULL);
 	dir = ft_split(temp, ':');
-	// if (!dir)
-	// {
-	// 	return (NULL);
-	// }
+	if (!dir)
+		return (NULL);
 	return (dir);
 }
 
@@ -86,39 +72,46 @@ char	**cmd_to_array(char *cmd)
 	return (arr);
 }
 
+char	*join_path(char *dir, char *cmd_name)
+{
+	char	*path;
+	char	*full_path;
+
+	path = ft_strjoin(dir, "/");
+	if (!path)
+		return (NULL);
+	full_path = ft_strjoin(path, cmd_name);
+	free(path);
+	if (!full_path)
+		return (NULL);
+	return (full_path);
+}
+
 /*
  * take path from array and reform with cmd
  * and check accessability
  */
 char	*make_cmd_path(char *cmd, char **envp)
 {
-	char	*path;
 	char	*full_path;
 	char	**dir;
 	char	**cmd_name;
 	int		i;
 
-	if (access(cmd, F_OK | X_OK) == 0)
-        return (ft_strdup(cmd));
 	dir = get_path_dir(envp);
 	cmd_name = cmd_to_array(cmd);
 	if (!dir || !cmd_name)
 		return (free_array(dir), free_array(cmd_name), NULL);
-	i = 0;
-	while (dir[i])
+	i = -1;
+	while (dir[++i])
 	{
-		path = ft_strjoin(dir[i], "/");
-		if (!path)
-			return (free_array(dir), free_array(cmd_name), NULL);
-		full_path = ft_strjoin(path, cmd_name[0]);
-		free(path);
+		full_path = join_path(dir[i], cmd_name[0]);
 		if (!full_path)
 			return (free_array(dir), free_array(cmd_name), NULL);
 		if (access(full_path, X_OK) == 0)
 			return (free_array(dir), free_array(cmd_name), full_path);
 		free(full_path);
 		full_path = NULL;
-		i++;
 	}
 	return (free_array(dir), free_array(cmd_name), NULL);
 }

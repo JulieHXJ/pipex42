@@ -6,7 +6,7 @@
 /*   By: xhuang <xhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 17:16:33 by xhuang            #+#    #+#             */
-/*   Updated: 2024/11/30 17:20:50 by xhuang           ###   ########.fr       */
+/*   Updated: 2024/12/06 16:51:16 by xhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,7 @@ void	init_pipex(t_pipex *pipex)
 
 int	check_args(int argc, char **argv, t_pipex *pipex, char **envp)
 {
-    pipex->cmd_num = argc - 2;
-    
+	pipex->cmd_num = argc - 2;
 	pipex->infile_fd = open(argv[1], O_RDONLY);
 	if (pipex->infile_fd < 0)
 		return (perror("infile"), -1);
@@ -48,15 +47,14 @@ int	check_args(int argc, char **argv, t_pipex *pipex, char **envp)
 	return (0);
 }
 
-
 int	main(int argc, char **argv, char **envp)
 {
 	t_pipex	pipex;
 
 	if (argc < 5)
 		return (ft_printf("Wrong arguments!\n"), -1);
-	init_pipex(&pipex, argv, envp);
-	if (check_args(argc, argv, &pipex) < 0)
+	init_pipex(&pipex);
+	if (check_args(argc, argv, &pipex, envp) < 0)
 	{
 		error_handling(&pipex, NULL, EXIT_FAILURE);
 		return (-1);

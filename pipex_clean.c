@@ -1,16 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_utils.c                                      :+:      :+:    :+:   */
+/*   pipex_clean.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: xhuang <xhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 17:11:31 by xhuang            #+#    #+#             */
-/*   Updated: 2024/12/01 16:29:12 by xhuang           ###   ########.fr       */
+/*   Updated: 2024/12/06 18:21:24 by xhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+void	init_pipex(t_pipex *pipex)
+{
+	pipex->infile_fd = -1;
+	pipex->outfile_fd = -1;
+	pipex->pipefd[0] = -1;
+	pipex->pipefd[1] = -1;
+	pipex->cmd_num = 2;
+	pipex->cmd1_arg = NULL;
+	pipex->cmd2_arg = NULL;
+	pipex->cmd1_path = NULL;
+	pipex->cmd2_path = NULL;
+}
 
 void	free_array(char **arr)
 {
