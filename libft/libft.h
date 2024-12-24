@@ -100,5 +100,4 @@ int					str_len(char *str);
 
 char				*get_next_line(int fd);
 
-
 #endif
